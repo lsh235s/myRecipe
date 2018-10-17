@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="css/map.css" type="text/css" media="all" />
+
+ <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+ <script src="js/jquery.min.js"></script>
+ 
+  <!-- showSildes Css -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  
+      <!-- Custom styles for this template -->
+    <link href="css/agency.min.css" rel="stylesheet">
+
+
+</head>
+<body>
+ <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="<%=url%>"><img src="images/logo.png" style="width:50%"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>about">열람실(시설)소개</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>about">예약하기
+              </a>
+            </li>
+            <% if ("" == user_id ){ %>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>login">로그인</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>sign">회원가입</a>
+            </li>
+            <% }else{ %>
+             <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>login">로그아웃</a>
+            </li>
+            <% } %>
+            <li class="nav-item active">
+              <a class="nav-link" href="<%=url%>contact">찾아오시는길</a>
+              <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	
+	
+	<div class="containerMap">
+	      <!-- Page Heading/Breadcrumbs -->
+      <h1 class="mt-4 mb-3">찾아오시는길</h1>
+		  <!-- Content Row -->
+      <div class="row">
+        <!-- Map Column -->
+        <div class="col-lg-8 mb-4">
+          <!-- Embedded Google Map -->
+             <iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=36.618455,127.445933&amp;spn==36.618455,127.445933&amp;t=m&amp;z=18&amp;output=embed"></iframe>
+        </div>
+        <!-- Contact Details Column -->
+        <div class="col-lg-4 mb-4">
+          <h3>상세주소</h3>
+          <p>
+                             청주시 서원구 복대로 13, 4층
+            <br>(금원빌딩 (1층 피자헛 건물))
+            <br>
+          </p>
+          <p>
+            <abbr title="Phone">대표전화</abbr>: 043-234-8763
+          </p>
+          <p>
+            <abbr title="Hours">운영시간</abbr>: 매일(09:00 ~ 01:30), 월 1회 휴무
+          </p>
+        </div>
+      </div>
+      <!-- /.row -->
+	</div>
+
+    <!-- Footer -->
+
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">상호 : 시작독서실</p>
+        <p class="m-0 text-center text-white">주소 : 청주시 서원구 복대로 13,4층</p>
+        <p class="m-0 text-center text-white">연락처 : 043-234-8763 &nbsp;&nbsp;&nbsp; 사업자 등록번호 : 732-94-00256</p>
+        <p class="m-0 text-center text-white">Copyright &copy; 시작독서실 개신캠퍼스 2018 &nbsp;&nbsp; 대표메일 : sizaklibrary@gmail.com</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+ 
+ <script>
+	function initialize() {
+        var mapLocation = new google.maps.LatLng('36.618455', '127.445933'); // 지도에서 가운데로 위치할 위도와 경도
+        var markLocation = new google.maps.LatLng('36.618455', '127.445933'); // 마커가 위치할 위도와 경도
+         
+        var mapOptions = {
+          center: mapLocation, // 지도에서 가운데로 위치할 위도와 경도(변수)
+          zoom: 18, // 지도 zoom단계
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map"), // id: map-canvas, body에 있는 div태그의 id와 같아야 함
+            mapOptions);
+         
+        var size_x = 60; // 마커로 사용할 이미지의 가로 크기
+        var size_y = 60; // 마커로 사용할 이미지의 세로 크기
+         
+        // 마커로 사용할 이미지 주소
+        var image = new google.maps.MarkerImage( 'http://www.larva.re.kr/home/img/boximage3.png',
+                            new google.maps.Size(size_x, size_y),
+                            '',
+                            '',
+                            new google.maps.Size(size_x, size_y));
+         
+ 
+         
+        var content = "이곳은 시작 독서실입니다"; // 말풍선 안에 들어갈 내용
+         
+        // 마커를 클릭했을 때의 이벤트. 말풍선 뿅~
+        var infowindow = new google.maps.InfoWindow({ content: content});
+ 
+        google.maps.event.addListener(marker, "click", function() {
+            infowindow.open(map,marker);
+        });
+         
+ 
+         
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+ </script>
+
+ 
+ </body>
+ </html>

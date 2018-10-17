@@ -1,0 +1,125 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+    font-family: Arial;
+    padding: 20px;
+    background: #f1f1f1;
+}
+
+/* Header/Blog Title */
+.header {
+    padding: 30px;
+    font-size: 40px;
+    text-align: center;
+    background: white;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {   
+    float: left;
+    width: 75%;
+}
+
+/* Right column */
+.rightcolumn {
+    float: left;
+    width: 25%;
+    padding-left: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+     background-color: #c0c0c0;
+     padding: 20px;
+     margin-top: 20px;
+}
+
+.titcard {
+	   display: inline-block;
+     background-color: #c0c0c0;
+     padding: 20px;
+     margin-top: 20px;
+     width: 100%;
+}
+
+.titleftcolumn {   
+    float: left;
+    width: 50%;
+}
+
+/* Right column */
+.titrightcolumn {
+	float: left;
+    width: 50%;
+    padding-left: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+    padding-top: 30px;
+}
+
+/* Footer */
+.footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+    
+}
+
+.containerMap {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 40px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+
+
+@media (min-width: 576px) {
+  .containerMap {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .containerMap {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .containerMap {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .containerMap {
+    max-width: 1140px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {   
+        width: 100%;
+        padding: 0;
+    }
+}

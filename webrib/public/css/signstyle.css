@@ -1,0 +1,277 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+    font-family: Arial;
+    padding: 120px;
+    background: url("../images/mainbackground.jpg") no-repeat;
+      background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {   
+    float: left;
+    width: 40%;
+}
+
+/* Right column */
+.rightcolumn {
+    float: left;
+    width: 60%;
+    padding-left: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+     background-color: white;
+     padding: 20px;
+     margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 100px;
+}
+.footer p {
+    font-family: Oswald-Regular;
+    color: #FFF;
+}
+.footer a {
+    font-family: Oswald-Regular;
+    color: #FFF;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+	color: #190909;
+}
+
+.whitesignin {
+    width: 100%;
+    background-color: rgba(230, 210, 210, 0.9);
+    border: 2px ridge rgba(238, 238, 238, 0.13);
+    border-radius: 5px;
+    -moz-box-shadow: 0 -5px 10px 1px rgba(16, 16, 16, 0.57);
+	-webkit-box-shadow: 0 -5px 10px 1px rgba(16, 16, 16, 0.57);
+	box-shadow: 0 -5px 10px 1px rgba(16, 16, 16, 0.57);
+}
+
+.pfont {
+	display: inline-block;
+}
+
+.hfont{
+	color: #FFFFFF;
+}
+
+.signin {
+    width: 100%;
+    background-color: rgba(56, 49, 49, 0.5);
+    border: 2px ridge rgba(238, 238, 238, 0.13);
+    border-radius: 5px;
+    -moz-box-shadow: 0 -5px 10px 1px rgba(16, 16, 16, 0.57);
+	-webkit-box-shadow: 0 -5px 10px 1px rgba(16, 16, 16, 0.57);
+	box-shadow: 0 -5px 10px 1px rgba(16, 16, 16, 0.57);
+}
+
+input.signinSmall {
+    width: 30%;
+    display: inline-block;
+    padding: 10px ;
+    border: 1px solid #7B7474;
+    border-radius: 5px;
+    font-family: Oswald-Light;
+    font-size: 18px;
+    color: #000000;
+     float: left;
+}
+
+
+.signLabel {
+	display: inline-block;
+	width: 100%;
+    color: #FFF;
+}
+
+.signtitle {
+    float: left;
+    padding: 10px; 
+    font-size: 18px;
+    color: #FFF;
+}
+
+input.sign {
+    width: 60%;
+    padding: 10px ;
+    border: 1px solid #7B7474;
+    border-radius: 5px;
+    font-family: Oswald-Light;
+    font-size: 18px;
+    color: #000000;
+     float: left;
+}
+
+label {
+    font-family: Oswald-Light;
+    color: #FFF;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px 0;
+    margin-top: 20px;
+    outline: none;
+    border: 1px solid #7B7474;
+    font-family: Oswald-Regular;
+    font-size: 17px;
+    color: #FFFFFF;
+    background-color: rgba(23, 24, 25, 0.24);
+    border-radius: 5px;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+	background-color: rgba(16, 89, 134, 0.52);
+	-webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+
+
+input[type="idbut"] {
+    width: 25%;
+    padding: 10px 30px;
+    display: inline-block;
+    margin-top: 0px;
+    margin-left: 20px;
+    outline: none;
+    border: 1px solid #7B7474;
+    font-family: Oswald-Regular;
+    font-size: 17px;
+    color: #FFFFFF;
+    background-color: rgba(23, 24, 25, 0.24);
+    border-radius: 5px;
+    cursor: pointer;
+}
+input[type="idbut"]:hover {
+	background-color: rgba(16, 89, 134, 0.52);
+	-webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+
+.signheader {
+  width: 100%;
+  background-color: #f1f1f1;
+}
+
+.signheader h2 {
+  text-align: center;
+}
+
+.signprogress-container {
+  width: 100%;
+  height: 8px;
+  background: #ccc;
+}
+
+.signprogress-bar {
+  height: 8px;
+  background: #4caf50;
+  width: 0%;
+}
+
+.signcontent {
+  padding: 0px 0;
+  margin: 20px auto 0 auto;
+  width: 90%;
+  overflow-y: scroll; height:400px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {   
+        width: 100%;
+        padding: 0;
+    }
+    
+    body {
+   	 padding: 80px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+	    body {
+   	 padding: 60px;
+    }
+    
+    .signtitle { 
+    font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 540px) {
+	    body {
+   	 padding: 40px;
+    }
+    
+      .signtitle { 
+    font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 440px) {
+	    body {
+   	 padding: 30px;
+    }
+    
+      .signtitle { 
+    font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 340px) {
+	    body {
+   	 padding: 10px;
+    }
+    
+      .signtitle { 
+    font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 240px) {
+	    body {
+   	 padding: 5px;
+    }
+    
+      .signtitle { 
+    font-size: 9px;
+    }
+}

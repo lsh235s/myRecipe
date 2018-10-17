@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>시작독서실 개신캠퍼스</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/agency.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+     <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="<%=url%>"><img src="images/logo.png" style="width:100%"></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>about">열람실(시설)소개</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>reservation">예약하기</a>
+            </li>
+            <% if ("" == user_id ){ %>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>login">로그인</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>sign">회원가입</a>
+            </li>
+            <% }else{ %>
+             <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>login">로그아웃</a>
+            </li>
+            <% } %>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/contact">찾아오시는길</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header>
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <!-- Slide One - Set the background image for this slide in the line below -->
+          <div class="carousel-item active" style="background-image: url('<%=url%>images/main/mainpage1.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+            </div>
+          </div>
+          <!-- Slide Two - Set the background image for this slide in the line below -->
+          <div class="carousel-item" style="background-image: url('<%=url%>images/main/mainpage2.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+            </div>
+          </div>
+          <!-- Slide Three - Set the background image for this slide in the line below -->
+          <div class="carousel-item" style="background-image: url('<%=url%>images/main/mainpage3.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <h1 class="my-4">시작독서실 개신캠퍼스에 오신 것을  환영합니다.</h1>
+      <dic class = "row">
+	     <div class="smallcard">
+	    	<div class="thumbnail">
+	        	<img src="images/wifi.png" alt="Lights" style="width:100%">
+	        	<div class="caption">
+	         	 <p>free wifi</p>
+	        	</div>
+	    	</div>
+	 	 </div>
+	 	 <div class="smallcard">
+	    	<div class="thumbnail">
+	        	<img src="images/notebook.png" alt="Lights" style="width:100%">
+	        	<div class="caption">
+	         	 <p>노트북대여</p>
+	        	</div>
+	    	</div>
+	 	 </div>
+	 	 <div class="smallcard">
+	    	<div class="thumbnail">
+	        	<img src="images/whitenoise.png" alt="Lights" style="width:100%">
+	        	<div class="caption">
+	         	 <p>백색소음</p>
+	        	</div>
+	    	</div>
+	 	 </div>
+	 	 <div class="smallcard">
+	    	<div class="thumbnail">
+	        	<img src="images/02build.png" alt="Lights" style="width:100%">
+	        	<div class="caption">
+	         	 <p>산소발생기</p>
+	        	</div>
+	    	</div>
+	 	 </div>
+	 	 <div class="smallcard">
+	    	<div class="thumbnail">
+	        	<img src="images/02clear.png" alt="Lights" style="width:100%">
+	        	<div class="caption">
+	         	 <p>공기청정기</p>
+	        	</div>
+	    	</div>
+	 	 </div>
+	 	 <div class="smallcard">
+	    	<div class="thumbnail">
+	        	<img src="images/damyoo.png" alt="Lights" style="width:100%">
+	        	<div class="caption">
+	         	 <p>담요대여</p>
+	        	</div>
+	    	</div>
+	 	 </div>
+	 	 <div class="smallcard">
+	    	<div class="thumbnail">
+	        	<img src="images/lock.png" alt="Lights" style="width:100%">
+	        	<div class="caption">
+	         	 <p>사물함</p>
+	        	</div>
+	    	</div>
+	 	 </div>
+	 	 <div class="smallcard">
+	    	<div class="thumbnail">
+	        	<img src="images/park.png" alt="Lights" style="width:100%">
+	        	<div class="caption">
+	         	 <p>주차가능</p>
+	        	</div>
+	    	</div>
+	 	 </div>
+      </row>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">상호 : 시작독서실</p>
+        <p class="m-0 text-center text-white">주소 : 청주시 서원구 복대로 13,4층</p>
+        <p class="m-0 text-center text-white">연락처 : 043-234-8763 &nbsp;&nbsp;&nbsp; 사업자 등록번호 : 732-94-00256</p>
+        <p class="m-0 text-center text-white">Copyright &copy; 시작독서실 개신캠퍼스 2018 &nbsp;&nbsp; 대표메일 : sizaklibrary@gmail.com</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    
+    <script src="js/agency.js"></script>
+
+  </body>
+
+</html>

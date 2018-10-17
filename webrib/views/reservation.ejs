@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>시작독서실 개신캠퍼스</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+          <!-- Custom styles for this template -->
+    <link href="css/agency.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
+    
+    <script type="text/javascript">
+	//<![CDATA[
+	$(function(){
+		$("#startDatepicker").datepicker({
+			showOn: 'both',
+			buttonImage: 'images/calrender.JPG',
+			buttonImageOnly: true,
+			 dateFormat: 'yy-mm-dd',
+	        prevText: '이전 달',
+	        nextText: '다음 달',
+	        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+	        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+	        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	        showMonthAfterYear: true,
+	        yearSuffix: '년'
+		}); 
+		 $('img.ui-datepicker-trigger').css({ 'margin-left':'5px', 'display': 'inline-block'});  
+		  $('img.ui-datepicker-trigger').attr('align', 'absmiddle');
+	});
+	//]]>
+	</script>
+  </head>
+
+  <body>
+
+     <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="<%=url%>"><img src="images/logo.png" style="width:50%"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>about">열람실(시설)소개</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="<%=url%>reservation">예약하기
+              <span class="sr-only">(current)</span></a>
+            </li>
+            <% if ("" == user_id ){ %>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>login">로그인</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>sign">회원가입</a>
+            </li>
+            <% }else{ %>
+             <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>login">로그아웃</a>
+            </li>
+            <% } %>
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>contact">찾아오시는길</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="subcontainer">
+	    <div class="container">
+	         <!-- Page Heading/Breadcrumbs -->
+	      <h1 class="mt-4 mb-3">열람실 예약신청</h1>
+	      <div class="card mb-4">
+	        <div class="card-body">
+	           <h4 class="card-header">열람실 선택</h4>
+		       <div class="row">
+	              <ol class="breadcrumbagency">
+			        <li class="breadcrumbagency-item"><a href="javascript:void(0);" onclick="ribRoom_click(1)">Signature Room</a></li>
+			        <li class="breadcrumbagency-item"><a href="javascript:void(0);" onclick="ribRoom_click(2)">Curved Room(남)</a></li>
+			        <li class="breadcrumbagency-item"><a href="javascript:void(0);" onclick="ribRoom_click(3)">Curved Room(여)</a></li>
+			        <li class="breadcrumbagency-item"><a href="javascript:void(0);" onclick="ribRoom_click(4)">Standard Room(여)</a></li>
+			        <li class="breadcrumbagency-item"><a href="javascript:void(0);" onclick="ribRoom_click(5)">Focus Room(남)</a></li>
+			        <li class="breadcrumbagency-item"><a href="javascript:void(0);" onclick="ribRoom_click(6)">Focus Room(여)</a></li>
+			        <li class="breadcrumbagency-item"><a href="javascript:void(0);" onclick="ribRoom_click(7)">Focus Room(남, 큰 책상)</a></li>
+			      </ol>
+		        </div>
+	        </div>
+	      </div>
+       	  <div class="row">
+	        <div class="col-lg-4 col-sm-4 portfolio-item">
+	          <div class="card h-100">
+	            <h4 class="card-header">이용시작일</h4>
+	            <div class="card-body">
+	               <input type="text" class="form-control" id="startDatepicker" disabled="disabled" onchange="startDate_change()">
+	            </div>
+	          </div>
+	        </div>
+	        <div class="col-lg-4 col-sm-4 portfolio-item">
+	          <div class="card h-100">
+	            <h4 class="card-header">사용기간 입력</h4>
+	            <div class="card-body">
+	              <input type="text" class="form-control" id="dateTime" onchange="dateTime_change()">
+	            </div>
+	          </div>
+	        </div>  
+	        <div class="col-lg-4 col-sm-4 portfolio-item">
+	          <div class="card h-100">
+	            <h4 class="card-header">이용 종료일</h4>
+	            <div class="card-body">
+	               <input type="text" class="form-control" id="endDatepicker" disabled="disabled">
+	            </div>
+	          </div>
+	        </div>  
+      	  </div>
+          <!-- /.row -->
+		  <div class="row">
+            <div class="col-lg-8">
+             <div class="card h-100">
+	            <h4 class="card-header">입력내용</h4>
+		            <div class="card-body">
+			             <div class="row">
+			               <div class="col-lg-3 col-sm-3 portfolio-item">
+					          <div class="card h-100">
+					               <input type="text" id="ribroom" disabled="disabled">
+					          </div>
+					       </div>
+			               <div class="col-lg-3 col-sm-3 portfolio-item">
+					          <div class="card h-100">
+					               <input type="text" id="startDateinput" disabled="disabled">
+					          </div>
+					        </div>
+					        <div class="col-lg-3 col-sm-3 portfolio-item">
+					          <div class="card h-100">
+					               <input type="text" id="dateinput" disabled="disabled">
+					          </div>
+					        </div>
+					        <div class="col-lg-3 col-sm-3 portfolio-item">
+					          <div class="card h-100">
+					               <input type="text" id="endDateinput" disabled="disabled">
+					           </div>
+					        </div>
+			            </div>
+		            </div>
+	          </div>
+            </div>
+            <div class="col-lg-4">
+              <a href="javascript:void(0);" class="btn btn-primary" onclick= "button_click()">예약하기</a>
+            </div>
+          </div>
+          <div class="card mb-4">
+	          <div class="card-body">
+		          <div class="row">
+		            <div class="col-lg-10">
+		              <h2 class="card-title">* 열람실 예약 이용안내</h2>
+		              <p class="card-text">1. 최종 예약하기를 누르면 관리자가 공석여부 확인 후, 열람실과 좌석번호 안내문자가 발송됩니다.</p>
+		              <br>
+		              <p class="card-text">2. 이용시작일 기준 24시간 이내 아래 계좌로 송금해주시거나 안내데스크에서 결제하셔야 원하시는 좌석이 확보됩니다.</p>
+		              <p class="card-text">* 계좌번호 : 신한은행 110_467_389359 : 강은실(시작독서실)</p>
+		               <br>
+		              <p class="card-text">3. 독서실 이용을 위해 회원님의 출입문 비밀번호 및 지문등록이 필요합니다. 안내 데스크에 방문해주세요.</p>
+		              <br>
+		              <p class="card-text">4. 사용일은 한달=30일 기준으로 계산됩니다.</p>
+		            </div>
+		          </div>
+	          </div>
+          </div>
+       </div>
+        <!-- /.container -->
+    </div>
+     <!-- /.subcontainer -->
+	<br>
+     <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">상호 : 시작독서실</p>
+        <p class="m-0 text-center text-white">주소 : 청주시 서원구 복대로 13,4층</p>
+        <p class="m-0 text-center text-white">연락처 : 043-234-8763 &nbsp;&nbsp;&nbsp; 사업자 등록번호 : 732-94-00256</p>
+        <p class="m-0 text-center text-white">Copyright &copy; 시작독서실 개신캠퍼스 2018 &nbsp;&nbsp; 대표메일 : sizaklibrary@gmail.com</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+     <!-- Bootstrap core JavaScript -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/showSlides.js"></script>
+    <script>
+   
+    function ribRoom_click(roomnum){
+    	if("1" == roomnum){
+    		$("#ribroom").val("Signature Room(남녀공용)");
+    	}
+    	if("2" == roomnum){
+    		$("#ribroom").val("Curved Room(남)");
+    	}
+    	if("3" == roomnum){
+    		$("#ribroom").val("Curved Room(여)");
+    	}
+    	if("4" == roomnum){
+    		$("#ribroom").val("Standard Room(여)");
+    	}
+    	if("5" == roomnum){
+    		$("#ribroom").val("Focus Room(남)");
+    	}
+    	if("6" == roomnum){
+    		$("#ribroom").val("Focus Room(여)");
+    	}
+    	if("7" == roomnum){
+    		$("#ribroom").val("Focus Room(남, 큰 책상)");
+    	}
+    }
+    
+    function startDate_change() {
+		var arr1 = $("#startDatepicker").val().replace("-","");
+		arr1 = arr1.replace("-","");
+		
+		
+		$("#startDateinput").val(arr1);
+		$("#dateTime").val("");
+		$("#endDateinput").val("");
+	
+	}
+	
+	function dateTime_change() {
+		if("" != $("#startDatepicker").val()){
+			regNumber = /^[0-9]*$/;
+			  
+			if(!regNumber.test($("#dateTime").val())) {
+			    alert('숫자만 입력해주세요.');
+			    $("#dateTime").val("");
+			    return;
+			}
+			
+			var arr1 = $("#startDatepicker").val().split('-');
+			
+			var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
+			
+			var endDay = dat1.setDate(dat1.getDate()+parseInt($("#dateTime").val()-1));
+	
+		    var endDateTime = getFormatDate(dat1.getFullYear(),dat1.getMonth(),dat1.getDate());
+		
+		    $("#dateinput").val($("#dateTime").val());
+			var datefull = $("#dateTime").val()+"일"
+		    $("#dateTime").val(datefull);
+		    
+			$("#endDatepicker").val(endDateTime);
+			var arr2 = endDateTime.replace("-","");
+			arr2 = arr2.replace("-","");
+			$("#endDateinput").val(arr2);
+		}else{
+			$("#dateTime").val("");
+			alert("시작일을 입력해주세요");
+		}
+	}
+	
+	function getFormatDate(year,month,day){                  
+		month = month >= 10 ? month : '0' + month;   
+		day = day >= 10 ? day : '0' + day;           
+		return  year + '-' + month + '-' + day;
+	}
+	
+	
+    function button_click(){
+        if(""==$("#startDateinput").val()){
+        	alert("예약 시작일을 입력해주세요");
+        	return;
+        }
+        if(""==$("#dateTime").val()){
+       	    alert("예약일을 입력해주세요");
+        	return;
+        }
+        if(""==$("#endDateinput").val()){
+        	alert("예약 종료일을 확인해주세요");
+        	return;
+        }
+        if($("#startDateinput").val() > $("#endDateinput").val()){
+       	    alert("시작일이 종료일보다 빠를수는 없습니다.");
+        	return;
+        }
+        if(0 == $("#ribroom").val()){
+        	alert("열람실을 선택해주시기 바랍니다.");
+        	return;
+        }
+
+	    var action = "<%=url%>reservating";
+		var form_data = {
+		    user_id:"<%=user_id%>",
+			startDatepicker: $("#startDateinput").val(),
+			endDatepicker: $("#endDateinput").val(),
+			roomnum: $("#ribroom").val(),
+			dateTime: $("#dateinput").val()
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: action,
+			data: form_data,
+			success: function(response) {
+				if(response == 'success') {
+					alert( $("#startDateinput").val()+"부터 "+$("#endDateinput").val()+"까지 "+$("#dateinput").val()+"일간 예약이 완료되었습니다.");
+					var tageturl = "<%=url%>reservation"
+					var form = $('<form></form>');
+			            form.attr('action', tageturl);
+			            form.attr('method', 'get');
+			            form.appendTo('body');
+			
+				
+					form.submit();
+					
+				}
+				if(response == 'resererror') {
+					alert($("#startDateinput").val()+"부터 "+$("#endDateinput").val()+"사이에 이미 예약이 존재 합니다.");
+				}
+			},
+			error:function(e){  
+				alert("오류"+e.responseText);  
+         	}  
+		});
+    }
+	
+    </script>
+  </body>
+
+</html>

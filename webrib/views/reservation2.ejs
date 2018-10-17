@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>시작독서실 개신캠퍼스</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+          <!-- Custom styles for this template -->
+    <link href="css/agency.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
+    
+    <script type="text/javascript">
+	//<![CDATA[
+	$(function(){
+		$("#startDatepicker").datepicker();
+		$("#endDatepicker").datepicker();
+	});
+	//]]>
+	</script>
+  </head>
+
+  <body>
+
+     <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="<%=url%>"><img src="images/logo.png" style="width:50%"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>about">열람실(시설)소개</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="<%=url%>reservation">예약하기
+              <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>login">로그인</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>sign">회원가입</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>contact">찾아오시는길</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="subcontainer">
+	    <div class="container">
+	         <!-- Page Heading/Breadcrumbs -->
+	      <h1 class="mt-4 mb-3">열람실 소개</h1>
+       	  <div class="row">
+	        <!-- Sidebar Widgets Column -->
+	        <div class="col-md-5">
+	            <!-- Search Widget -->
+         		<div class="card my-2">
+            	<h5 class="card-header">Search</h5>
+            		 <div class="custom-select" style="width:200px;">
+				    	 <strong>독서실 room</strong>
+						  <select id="roomSelect">
+						    <option value="0">Select Room:</option>
+						    <option value="1">Signature Room</option>
+						    <option value="2">Curved Room</option>
+						    <option value="3">Standard Room</option>
+						    <option value="4">Focus Room</option>
+						  </select>
+					 </div>
+					 <!-- Categories Widget -->
+	          		 <div class="card mb-2">
+	          		 	<div class="card-body">
+	          		 		<div class="row">
+			          		 	<div class="col-lg-6">
+				                  <ul class="list-unstyled mb-0">
+				                    <li>
+				                      <strong>예약 시작:</strong> 
+									  <input type="text" class="form-control"  id="startDatepicker" onchange="startDate_change()">
+				                    </li>
+				                    <li>
+				                      <strong>예약 기간</strong> 
+									  <input type="text" class="form-control"  id="dateTime" onchange="dateTime_change()">
+				                    </li>
+				                  </ul>
+				                </div>
+				                <div class="col-lg-6">
+				                  <ul class="list-unstyled mb-0">
+				                    <li>
+				                      	<strong>예약 종료:</strong> 
+										<input type="text" class="form-control"  id="endDatepicker" onchange="endDate_change()">
+				                    </li>
+				                    <li>
+				                       <strong>예약 비용</strong> 
+									   <input type="text" class="form-control"  >
+				                    </li>
+				                  </ul>
+				                </div>
+				                <div class="col-lg-6">
+				                  <div class="blockdiv">
+									 <button class="btn btn-secondary" type="button"  onclick="button_click()">	예약하기</button>
+								  </div>
+				                </div>
+				            </div>    
+	          		 	</div>
+	          		 	<!-- Categories Widget end -->
+	          		 	<br>
+	          		 </div>
+	          		 
+	          		  <!-- Side Widget -->
+			          <div class="card my-4">
+			            <table class="table table-striped">
+						   <thead>
+						     <tr>
+						       <th style="width:20%">열람실</th>
+						       <th>사용시작일</th>
+						       <th>사용종료일</th>
+						       <th>사용기간</th>
+						     </tr>
+						   </thead>
+						   <tbody>
+						      <% for(var i =0 ; i < reserows.length; i++){ %>
+						     <tr>
+						       <td><%=reserows[i].ROOMNUM%></td>
+						       <td><%=reserows[i].STARTDATE%></td>
+						       <td><%=reserows[i].ENDDATE%></td>
+						       <td><%=reserows[i].DATETIME%>일</td>
+						     </tr>
+						     <%}%>
+						   </tbody>
+						 </table>
+			           </div>
+	          	<!-- Sidebar Widgets Column -->
+            	</div>
+            <!-- Page Heading/Breadcrumbs -->	
+	        </div>
+	        
+	        <!-- Blog Entries Column -->
+	        <div class="col-md-7">
+	
+	          <!-- Blog Post -->
+	          <div class="card mb-4">
+	            <h3>독서실 이용시간</h3>
+	                <ul >
+	                	<li><strong>평일/토요일</strong> : 07:00 ~23:00</li>
+	                    <li><strong>일요일</strong> : 07:00 ~23:00</li>
+	                    <li><strong>명절</strong> : 10:00 ~20:00</li>
+	                </ul>
+		            <p class="con-txt mg10t">※ 이용시간 5분전에 퇴실준비를 해주세요!!! 정각에 소등됩니다.<br />
+	                                                      ※ 타인에게 불편을 끼치는 분은 강퇴됩니다.</p>
+		        
+					<table class="table table-striped">
+				    <thead>
+				      <tr>
+				        <th>열람실</th>
+				        <th>사용기간</th>
+				        <th>이용금액</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td>Signature Room(남,여)</td>
+				        <td>1일</td>
+				        <td>요금정보</td>
+				      </tr>
+				      <tr>
+				        <td>Curved Room(남)</td>
+				        <td>30일</td>
+				        <td>요금정보</td>
+				      </tr>
+				      <tr>
+				        <td>Curved Room(여)</td>
+				        <td>90일</td>
+				        <td>요금정보</td>
+				      </tr>
+				      <tr>
+				        <td>Standard Room(여)</td>
+				        <td>일</td>
+				        <td>요금정보</td>
+				      </tr>
+				      <tr>
+				        <td>Focus Room(남)</td>
+				        <td>일</td>
+				        <td>요금정보</td>
+				      </tr>
+				       <tr>
+				        <td>Focus Room(여)</td>
+				        <td>일</td>
+				        <td>요금정보</td>
+				      </tr>
+				      <tr>
+				        <td>Focus Room(남, 큰 책상)</td>
+				        <td>일</td>
+				        <td>요금정보</td>
+				      </tr>
+				    </tbody>
+				  </table>
+	          </div>
+	
+	        </div>
+      	  </div>
+          <!-- /.row -->
+	
+       <!-- /.container -->
+       </div>
+    </div>
+	<br>
+     <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">주소 : 청주시 서원구 복대로 13,4층</p>
+        <p class="m-0 text-center text-white">연락처 : 043-234-8763</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+     <!-- Bootstrap core JavaScript -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/showSlides.js"></script>
+    <script>
+    var x, i, j, selElmnt, a, b, c;
+	/*look for any elements with the class "custom-select":*/
+	x = document.getElementsByClassName("custom-select");
+	for (i = 0; i < x.length; i++) {
+	  selElmnt = x[i].getElementsByTagName("select")[0];
+	  /*for each element, create a new DIV that will act as the selected item:*/
+	  a = document.createElement("DIV");
+	  a.setAttribute("class", "select-selected");
+	  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+	  x[i].appendChild(a);
+	  /*for each element, create a new DIV that will contain the option list:*/
+	  b = document.createElement("DIV");
+	  b.setAttribute("class", "select-items select-hide");
+	  for (j = 0; j < selElmnt.length; j++) {
+	    /*for each option in the original select element,
+	    create a new DIV that will act as an option item:*/
+	    c = document.createElement("DIV");
+	    c.innerHTML = selElmnt.options[j].innerHTML;
+	    c.addEventListener("click", function(e) {
+	        /*when an item is clicked, update the original select box,
+	        and the selected item:*/
+	        var y, i, k, s, h;
+	        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+	        h = this.parentNode.previousSibling;
+	        for (i = 0; i < s.length; i++) {
+	          if (s.options[i].innerHTML == this.innerHTML) {
+	            s.selectedIndex = i;
+	            h.innerHTML = this.innerHTML;
+	            y = this.parentNode.getElementsByClassName("same-as-selected");
+	            for (k = 0; k < y.length; k++) {
+	              y[k].removeAttribute("class");
+	            }
+	            this.setAttribute("class", "same-as-selected");
+	            break;
+	          }
+	        }
+	        h.click();
+	    });
+	    b.appendChild(c);
+	  }
+	  x[i].appendChild(b);
+	  a.addEventListener("click", function(e) {
+	      /*when the select box is clicked, close any other select boxes,
+	      and open/close the current select box:*/
+	      e.stopPropagation();
+	      closeAllSelect(this);
+	      this.nextSibling.classList.toggle("select-hide");
+	      this.classList.toggle("select-arrow-active");
+	    });
+	}
+	function closeAllSelect(elmnt) {
+	  /*a function that will close all select boxes in the document,
+	  except the current select box:*/
+	  var x, y, i, arrNo = [];
+	  x = document.getElementsByClassName("select-items");
+	  y = document.getElementsByClassName("select-selected");
+	  for (i = 0; i < y.length; i++) {
+	    if (elmnt == y[i]) {
+	      arrNo.push(i)
+	    } else {
+	      y[i].classList.remove("select-arrow-active");
+	    }
+	  }
+	  for (i = 0; i < x.length; i++) {
+	    if (arrNo.indexOf(i)) {
+	      x[i].classList.add("select-hide");
+	    }
+	  }
+	}
+	/*if the user clicks anywhere outside the select box,
+	then close all select boxes:*/
+	document.addEventListener("click", closeAllSelect);
+   
+    
+    function startDate_change() {
+		var arr1 = $("#startDatepicker").val().split('/');
+		var dat1 = new Date(arr1[2], arr1[0], arr1[1]);
+		
+		var textDate = getFormatDate(dat1.getFullYear(),dat1.getMonth(),dat1.getDate());
+		
+		$("#startDatepicker").val(textDate);
+		
+		if("" != $("#endDatepicker").val()){
+			var arr2 = $("#endDatepicker").val().split('-');
+			var dat2 = new Date(arr2[0], arr2[1], arr2[2]);
+			
+			var diff = dat2 - dat1;
+			var currDay = 24 * 60 * 60 * 1000;
+			
+			$("#dateTime").val(parseInt(diff/currDay));
+		}
+	
+	}
+	
+	function endDate_change() {
+		var arr2 = $("#endDatepicker").val().split('/');
+		var dat2 = new Date(arr2[2], arr2[0], arr2[1]);
+		
+		var textDate = getFormatDate(dat2.getFullYear(),dat2.getMonth(),dat2.getDate());
+		
+		$("#endDatepicker").val(textDate);
+	
+		if("" != $("#startDatepicker").val()){
+			var arr1 = $("#startDatepicker").val().split('-');
+			var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
+			
+			var diff = dat2 - dat1;
+			var currDay = 24 * 60 * 60 * 1000;
+			
+			$("#dateTime").val(parseInt(diff/currDay));
+		}
+	}
+	
+	function dateTime_change() {
+		if("" != $("#startDatepicker").val()){
+			
+			var arr1 = $("#startDatepicker").val().split('-');
+			
+			var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
+			
+			var endDay = dat1.setDate(dat1.getDate()+parseInt($("#dateTime").val()));
+	
+		    var endDateTime = getFormatDate(dat1.getFullYear(),dat1.getMonth(),dat1.getDate());
+		
+			$("#endDatepicker").val(endDateTime);
+		}
+	}
+	
+	function getFormatDate(year,month,day){                  
+		month = month >= 10 ? month : '0' + month;   
+		day = day >= 10 ? day : '0' + day;           
+		return  year + '-' + month + '-' + day;
+	}
+	
+	
+    function button_click(){
+        if(""==$("#startDatepicker").val()){
+        	alert("예약 시작일을 입력해주세요");
+        	return;
+        }
+        if(""==$("#endDatepicker").val()){
+       	    alert("예약 종료일을 입력해주세요");
+        	return;
+        }
+        if($("#startDatepicker").val() > $("#endDatepicker").val()){
+       	    alert("시작일이 종료일보다 빠를수는 없습니다.");
+        	return;
+        }
+        if(0 == $("#roomSelect").val()){
+        	alert("열람실을 선택해주시기 바랍니다.");
+        	return;
+        }
+    
+	    var action = "<%=url%>reservating";
+		var form_data = {
+		    user_id:"<%=user_id%>",
+			startDatepicker: $("#startDatepicker").val().replace(/-/gi,''),
+			endDatepicker: $("#endDatepicker").val().replace(/-/gi,''),
+			roomnum: $("#roomSelect").val(),
+			dateTime: $("#dateTime").val()    
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: action,
+			data: form_data,
+			success: function(response) {
+				if(response == 'success') {
+					alert( $("#startDatepicker").val()+"부터 "+$("#endDatepicker").val()+"까지 "+$("#dateTime").val()+"일간 예약이 완료되었습니다.");
+					var tageturl = "<%=url%>reservation"
+					var form = $('<form></form>');
+			            form.attr('action', tageturl);
+			            form.attr('method', 'get');
+			            form.appendTo('body');
+			
+				
+					form.submit();
+					
+				}
+				if(response == 'resererror') {
+					alert($("#startDatepicker").val()+"부터 "+$("#endDatepicker").val()+"사이에 이미 예약이 존재 합니다.");
+				}
+			},
+			error:function(e){  
+				alert("오류"+e.responseText);  
+         	}  
+		});
+    }
+	
+    </script>
+  </body>
+
+</html>

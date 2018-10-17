@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>시작독서실 개신캠퍼스</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<script type="text/javascript">  
+		$(function(){
+			 $("#sr_user_id").val("<%=sel_user_id%>");
+			 $("#sr_name").val("<%=sel_name%>");
+			 $("#sr_phone").val("<%=sel_phone%>");
+			 $("#sr_reg_date").val("<%=sel_reg_date%>");
+		
+	        $("table tr").click(function(){
+	            var tr = $(this);
+	            var td = tr.children();
+	            var ur_id = td.eq(0).text();
+	           // var tdArr = new Array();    
+	             
+	           // td.each(function(i){
+        		//	tdArr.push(td.eq(i).text());
+    		//	});
+	            
+	            var action = "<%=url%>"+"managerprocess";
+				var form_data = {
+					user_id: ur_id
+				};
+				
+				$.ajax({
+					type: "POST",
+					url: action,
+					data: form_data,
+					success: function(response) {
+						$("#user_id").val(response.result[0].USER_ID);
+						$("#name").val(response.result[0].NAME);
+						$("#phone").val(response.result[0].PHONE);
+						$("#brithday").val(response.result[0].BRITHDAY);
+						$("#exam").val(response.result[0].EXAM);
+						$("#school").val(response.result[0].SCHOOL);
+						$("#reg_date").val(response.result[0].REG_DATE);
+						$("#address").val(response.result[0].ADDRESS);
+					},
+					error:function(e){  
+						alert("오류"+e.responseText);  
+	             	}  
+				});
+				console.log("배열에 담긴 값 : "+user_id);
+	        });
+	        
+	         $("#sr_btn").click(function(){
+         			gridsrcher(1);
+	         });
+	         
+	         $("#excel_btn").click(function(){
+         		  gridDownLoad("resermanager");
+	         });
+	    });
+	    
+	    function gridDownLoad(excelkind){
+		    var tageturl = "<%=url%>exceldown";
+			    		var form = $('<form></form>');
+			            form.attr('action', tageturl);
+			            form.attr('method', 'post');
+			            form.appendTo('body');
+			            form.append($('<input type="hidden" value="'+ $("#sr_user_id").val() + '" name="user_id">'));
+			            form.append($('<input type="hidden" value="'+ $("#sr_name").val() + '" name="name">'));
+			            form.append($('<input type="hidden" value="'+ $("#sr_phone").val() + '" name="phone">'));
+			            form.append($('<input type="hidden" value="'+ $("#sr_reg_date").val() + '" name="reg_date">'));
+			            form.append($('<input type="hidden" value="excelmanager" name="excelkind">'));
+			            form.submit();
+	    }
+	    
+	    function gridsrcher(startpage){
+		    var tageturl = "<%=url%>managerserch";
+			    		var form = $('<form></form>');
+			            form.attr('action', tageturl);
+			            form.attr('method', 'post');
+			            form.appendTo('body');
+			            form.append($('<input type="hidden" value="'+ $("#sr_user_id").val() + '" name="user_id">'));
+			            form.append($('<input type="hidden" value="'+ $("#sr_name").val() + '" name="name">'));
+			            form.append($('<input type="hidden" value="'+ $("#sr_phone").val() + '" name="phone">'));
+			            form.append($('<input type="hidden" value="'+ $("#sr_reg_date").val() + '" name="reg_date">'));
+			            form.append($('<input type="hidden" value="'+ startpage + '" name="startpage">'));
+			            form.submit();
+	    }
+	    
+	    var totalData = <%=total%>;    // 총 데이터 수
+	    var dataPerPage = 10;    // 한 페이지에 나타낼 데이터 수
+	    var pageCount = 5;        // 한 화면에 나타낼 페이지 수
+	    
+	    function paging(totalData, dataPerPage, pageCount, currentPage){
+	    	if(totalData/20 < pageCount){
+	    		pageCount= Math.floor((totalData/10)+1);
+	    	}
+	        
+	        console.log("currentPage : " + currentPage);
+	        
+	        var totalPage = Math.ceil(totalData/dataPerPage);    // 총 페이지 수
+	        var pageGroup = Math.ceil(currentPage/pageCount);    // 페이지 그룹
+	        
+	        console.log("pageGroup : " + pageGroup);
+	        
+	        var last = pageGroup * pageCount;    // 화면에 보여질 마지막 페이지 번호
+	        if(last > totalPage)
+	            last = totalPage;
+	        var first = last - (pageCount-1);    // 화면에 보여질 첫번째 페이지 번호
+	        var next = last+1;
+	        var prev = first-1;
+	 
+	        var $pingingView = $("#paging");
+	        
+	        var html = "";
+	        
+	        if(prev > 0)
+	            html += "<a href=# id='prev'><</a> ";
+	        
+	        for(var i=first; i <= last; i++){
+	            html += "<a href='#' id=" + i + ">" + i + "</a> ";
+	        }
+	        
+	        if(last < totalPage)
+	            html += "<a href=# id='next'>></a>";
+	        
+	        $("#paging").html(html);    // 페이지 목록 생성
+	        $("#paging a").css("color", "black");
+	        $("#paging a#" + currentPage).css({"text-decoration":"none", 
+	                                           "color":"blue", 
+	                                           "font-weight":"bold"});    // 현재 페이지 표시
+	                                           
+	        $("#paging a").click(function(){
+	            
+	            var $item = $(this);
+	            var $id = $item.attr("id");
+	            var selectedPage = $item.text();
+	            
+	            if($id == "next")    selectedPage = next;
+	            if($id == "prev")    selectedPage = prev;
+	            
+	            gridsrcher(selectedPage);
+	            
+	            paging(totalData, dataPerPage, pageCount, selectedPage);
+	        });
+	                                           
+	    }
+	    
+	    $("document").ready(function(){        
+	        paging(totalData, dataPerPage, pageCount, <%=nowpage%>);
+	    });
+		    
+	</script>
+
+  </head>
+
+  <body>
+
+      <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="<%=url%>"><img src="images/logo.png" style="width:50%"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="<%=url%>about">열람실(시설)소개
+              <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>reservation">예약하기
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>login">로그인</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>sign">회원가입</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>contact">찾아오시는길</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+        <!-- Page Content -->
+    <div class="subcontainer">
+	    <div class="container">
+	      <!-- Page Heading/Breadcrumbs -->
+	      <h1 class="mt-4 mb-3">회원관리</h1>
+			<!-- Content Row -->
+		     
+      <div class="row">
+		    <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+
+          <!-- Search Widget -->
+          <div class="card mb-4">
+            <div class="card-body">
+       		    <div class="list-group">
+		            <a href="<%=url%>manager" class="list-group-item active">회원관리</a>
+		            <a href="<%=url%>resermanager" class="list-group-item">예약관리</a>
+		        </div>
+            </div>
+          </div>
+
+          <!-- Categories Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Categories</h5>
+            <div class="card-body">
+		       <div class="input-group">
+                 <span class="input-group-btn">
+                  	&nbsp;&nbsp;아&nbsp;이&nbsp;디&nbsp;&nbsp;&nbsp;&nbsp;
+                 </span>
+                 <input type="text" id="user_id" class="form-control" placeholder="">
+              </div>
+              <div class="input-group">
+                 <span class="input-group-btn">
+                  	&nbsp;&nbsp;이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름&nbsp;&nbsp;&nbsp;&nbsp;
+                 </span>
+                 <input type="text" id="name" class="form-control" placeholder="">
+              </div>
+              <div class="input-group">
+                 <span class="input-group-btn">
+                  	&nbsp;&nbsp;연&nbsp;락&nbsp;처&nbsp;&nbsp;&nbsp;&nbsp;
+                 </span>
+                 <input type="text" id="phone"  class="form-control" placeholder="">
+              </div>
+              <div class="input-group">
+                 <span class="input-group-btn">
+                  	&nbsp;&nbsp;생년월일&nbsp;&nbsp;
+                 </span>
+                 <input type="text" id="brithday"  class="form-control" placeholder="">
+              </div>
+              <div class="input-group">
+                 <span class="input-group-btn">
+                  	&nbsp;&nbsp;시&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;험&nbsp;&nbsp;&nbsp;&nbsp;
+                 </span>
+                 <input type="text" id="exam"  class="form-control" placeholder="">
+              </div>
+              <div class="input-group">
+                 <span class="input-group-btn">
+                  	&nbsp;&nbsp;학&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;교&nbsp;&nbsp;&nbsp;&nbsp;
+                 </span>
+                 <input type="text" id="school"  class="form-control" placeholder="">
+              </div>		
+              <div class="input-group">
+                 <span class="input-group-btn">
+                  	&nbsp;&nbsp;가&nbsp;입&nbsp;일&nbsp;&nbsp;&nbsp;&nbsp;
+                 </span>
+                 <input type="text" id="reg_date"  class="form-control" placeholder="">
+              </div>
+              <div class="input-group">
+                 <span class="input-group-btn">
+                  	&nbsp;&nbsp;주소&nbsp;&nbsp;
+                 </span>
+              </div>	
+              <div class="input-group">	
+              	<input type="text"  id="address" class="form-control" placeholder="">		
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+          <!-- Blog Post -->
+          <div class="card mb-4">
+           <div class="card-body">
+	              <h2 class="card-title">회원리스트</h2>
+	             <!-- Search Widget -->
+		          <div class="card mb-4">
+		            <div class="card-body">
+		              <div class="input-group">
+		                <span class="input-group-btn">
+		                                        아이디&nbsp;&nbsp;
+		                </span>
+		                <input type="text" id="sr_user_id" class="form-control" placeholder="">
+		                <span class="input-group-btn">
+		                  &nbsp;&nbsp;이&nbsp;&nbsp;&nbsp;&nbsp;름&nbsp;&nbsp;
+		                </span>
+		                <input type="text" id="sr_name" class="form-control" placeholder="">
+		                <span class="input-group-btn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		              </div>
+		              <br>
+		              <div class="input-group">
+		                <span class="input-group-btn">
+		                                        연락처&nbsp;&nbsp;
+		                </span>
+		                <input type="text" id="sr_phone" class="form-control" placeholder="">
+		                <span class="input-group-btn">
+		                  	&nbsp;&nbsp;가입일&nbsp;&nbsp;
+		                </span>
+		                <input type="text" id="sr_reg_date" class="form-control" placeholder="">
+		                <span class="input-group-btn">
+		                  <button id="sr_btn" class="btn btn-secondary" type="button"> Go!</button>
+		                </span>
+		              </div>
+		            </div>
+		          </div>
+		          <div class="card-footer text-muted">
+	                 <table class="table table-hover row-clickable">
+					    <thead>
+					      <tr>
+					        <th style="width:20%">아이디</th>
+					        <th>이름</th>
+					        <th>연락처</th>
+					        <th>가입일</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <% for(var i =0 ; i < result.length; i++){ %>
+					      <tr>
+					        <td><%=result[i].USER_ID%></td>
+					        <td><%=result[i].NAME%></td>
+					        <td><%=result[i].PHONE%></td>
+					        <td><%=result[i].REG_DATE%></td>
+					      </tr>
+					      <%}%>
+					    </tbody>
+					  </table>
+	            </div>
+	                   <!-- Pagination -->
+		          <ul class="pagination justify-content-center mb-4">
+		            <div id="paging"></div>
+		          </ul>
+		          
+		          <span class="input-group-btn">
+                 	 <button id="excel_btn" class="btn btn-secondary" type="button"> excel_down</button>
+               	 </span> 
+          </div>
+          
+        </div>
+
+    
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">주소 : 청주시 서원구 복대로 13,4층</p>
+        <p class="m-0 text-center text-white">연락처 : 043-234-8763 &nbsp;&nbsp;&nbsp; 사업자 등록번호 : 732-94-00256</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+   
+    
+  </body>
+
+</html>

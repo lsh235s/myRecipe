@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>시작독서실 개신캠퍼스</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/agency.min.css" rel="stylesheet">
+    
+     <!-- showSildes Css -->
+    <link href="css/showSildes.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+      <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="<%=url%>"><img src="images/logo.png" style="width:50%"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="<%=url%>about">열람실(시설)소개
+              <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>reservation">예약하기
+              </a>
+            </li>
+            <% if ("" == user_id ){ %>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>login">로그인</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>sign">회원가입</a>
+            </li>
+            <% }else{ %>
+             <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="<%=url%>login">로그아웃</a>
+            </li>
+            <% } %>
+            <li class="nav-item">
+              <a class="nav-link" href="<%=url%>contact">찾아오시는길</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="subcontainer">
+	    <div class="container">
+	
+	      <!-- Page Heading/Breadcrumbs -->
+	      <h1 class="mt-4 mb-3">열람실 소개</h1>
+	
+	      <div class="row">
+	      	        <!-- Sidebar Widgets Column -->
+	        <div class="col-md-4">
+	
+	          <!-- Search Widget -->
+	         <div class="tab">
+			  <button class="tablinks active" onclick="goPage('<%=url%>information')">Information desk</button>
+			  <button class="tablinks hover" onclick="goPage('<%=url%>signature')">Signature Room</button>
+			  <button class="tablinks hover" onclick="goPage('<%=url%>curved')">Curved Room</button>
+			  <button class="tablinks hover" onclick="goPage('<%=url%>standard')">Standard Room</button>
+			  <button class="tablinks hover" onclick="goPage('<%=url%>focus')">Focus Room</button>
+			  <button class="tablinks hover" onclick="goPage('<%=url%>foodzon')">Food Zone</button>
+			 </div>
+	
+	        </div>
+	
+	        <!-- Blog Entries Column -->
+	        <div class="col-md-8">
+	
+	          <!-- Blog Post -->
+	          <div class="sildecard sb-4">
+	            <div class="slidescontainer">
+				
+				  <!-- Full-width images with number text -->
+				  <div class="mySlides">
+				     <img src="images/Information/informationdesk1.jpg" style="width:100%">
+				  </div>
+				
+				  <div class="mySlides">
+				     <img src="images/Information/informationdesk2.jpg" style="width:100%">
+				  </div>
+			
+				
+				  <% if(login == "Y"){ %>
+				  <!-- Image text -->
+				  <div class="sildecaption-container">
+				    <p id="caption"></p>
+				  </div>
+				
+				  <!-- Thumbnail images -->
+				  <div class="silderow">
+				    <div class="sildecolumn">
+				      <img class="demo cursor" src="images/Information/informationdesk1.jpg" style="width:100%" onclick="currentSlide(1)" >
+				    </div>
+				    <div class="sildecolumn"> 
+				      <img class="demo cursor" src="images/Information/informationdesk2.jpg" style="width:100%" onclick="currentSlide(2)" >
+				    </div>
+				  </div>
+				  <%}%>
+				</div>
+	            <div class="sildecard-body">
+	              <p class="card-text">고객과 만나는 공간의 처음과 끝을 책임지고 있습니다. 시작독서실 개신캠퍼스의 운영과 서비스제공, 관리를 책임지는 친절한 총무님들이 항상 기다리고 있습니다.  </p>
+	            </div>
+	          </div>
+	
+	        </div>
+	
+	      </div>
+	      <!-- /.row -->
+	
+	    </div>
+    <!-- /.container -->
+    </div>
+
+     <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">상호 : 시작독서실</p>
+        <p class="m-0 text-center text-white">주소 : 청주시 서원구 복대로 13,4층</p>
+        <p class="m-0 text-center text-white">연락처 : 043-234-8763 &nbsp;&nbsp;&nbsp; 사업자 등록번호 : 732-94-00256</p>
+        <p class="m-0 text-center text-white">Copyright &copy; 시작독서실 개신캠퍼스 2018 &nbsp;&nbsp; 대표메일 : sizaklibrary@gmail.com</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/showSlides.js"></script>
+    <script>
+    function goPage(nav) {
+		var pagename ;
+		pagename = nav;
+    	location.href = pagename;
+	
+	}
+    </script>
+  </body>
+
+</html>
