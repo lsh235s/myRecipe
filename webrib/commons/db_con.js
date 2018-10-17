@@ -15,12 +15,12 @@ module.exports = function () {
     },
     
     fcm_key : function (){
-    	var key = 'AAAA2a4dMuY:APA91bFIJsrlmq6zHFeEKwNBKSDni4WIr1VBBcdNo1OvwOC4ik_7tFUcI-V1HjI3k_TLlLYfFgjZY-9G0N90-aetiTGGnOvlrf0DyBBukyPAFdeWD57stT_EXdfdtG4h-oOd2BR9-QMr';
+    	var key = '';
     		
     	return key; 	
     } , 
     client_key : function (){
-    	var key = 'cqxb1JX5Hc0:APA91bEMWlt_PGL974SU3GdBpVJMu9Tn-j3tua9Ejzp7CC2pYnwPy5UYQzT28tv9UGC1zBnsopJLefRlcDlSuVFZNE8rnY2z131XcBwZ5stb1UVo9M7v20MvQHhXHg1v63vBWlEyRlQN/cqxb1JX5Hc0:APA91bEMWlt_PGL974SU3GdBpVJMu9Tn-j3tua9Ejzp7CC2pYnwPy5UYQzT28tv9UGC1zBnsopJLefRlcDlSuVFZNE8rnY2z131XcBwZ5stb1UVo9M7v20MvQHhXHg1v63vBWlEyRlQN';
+    	var key = '';
     		
     	return key; 	
     } , 
